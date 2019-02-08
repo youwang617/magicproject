@@ -1,15 +1,12 @@
 language: java
 jdk:
-  - openjdk7
-  - openjdk8
-#  - oraclejdk7 #It seems oraclejdk7 temp fail on Travis
-install: true
-after_success:
-  - mvn clean test org.jacoco:jacoco-maven-plugin:report org.eluder.coveralls:coveralls-maven-plugin:report
-
+    - oraclejdk8
 before_install:
-  - wget https://github.com/onelogin/java-saml/archive/bb39ee487829deeb0224355300b3f35309b2b4e3.zip
-  - unzip bb39ee487829deeb0224355300b3f35309b2b4e3.zip
-  - cp -rT java-saml-bb39ee487829deeb0224355300b3f35309b2b4e3 ./
-  - rm -r java-saml-bb39ee487829deeb0224355300b3f35309b2b4e3
-  - rm bb39ee487829deeb0224355300b3f35309b2b4e3.zip
+    - wget https://github.com/dooApp/FXForm2/archive/d1a41f3c89c3e0d1ceb52b701b54061b88b80c7f.zip
+    - unzip d1a41f3c89c3e0d1ceb52b701b54061b88b80c7f.zip
+    - cp -rT FXForm2-d1a41f3c89c3e0d1ceb52b701b54061b88b80c7f ./
+    - rm -r FXForm2-d1a41f3c89c3e0d1ceb52b701b54061b88b80c7f
+    - rm d1a41f3c89c3e0d1ceb52b701b54061b88b80c7f.zip
+    - "export DISPLAY=:99.0"
+    - "sh -e /etc/init.d/xvfb start"
+sudo: false

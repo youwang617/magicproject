@@ -1,51 +1,24 @@
-dist: trusty
-sudo: required
 language: java
-jdk:
-  - oraclejdk8
-
-git:
-  depth: 3
-
-addons:
-  postgresql: "9.6"
-#  apt:
-#    packages:
-#    - mysql-server-5.7
-#    - mysql-client-core-5.7
-#    - mysql-client-5.7
-
-services:
-  - docker
-  - postgresql
-  - mysql
-
-before_script:
-  - ./.travis/setup_database
-  - mysql -u root -e 'CREATE DATABASE test_ebean;'
-  - mysql -u root -e "CREATE USER 'test_ebean'@'localhost' IDENTIFIED BY 'test';"
-  - mysql -u root -e "GRANT ALL ON test_ebean.* TO 'test_ebean'@'localhost';"
-
-env:
-  - EBEAN_DB=h2
-  - EBEAN_DB=pg
-#  - EBEAN_DB=mysql
-
-install: true
-
-script:
-  - mvn clean test
-
-after_failure:
-  - ./.travis/print_surefire_reports
 
 cache:
   directories:
   - $HOME/.m2
 
+jdk:
+  - oraclejdk8
+
+after_success:
+  - codecov
+  - mvn package -pl ugs-core assembly:assembly
+  - mvn install
+
+before_script:
+  - pip install --user codecov
+
+
 before_install:
-  - wget https://github.com/ebean-orm/ebean/archive/448ffd9afac8f8ba640f5f60e1301354443dbc06.zip
-  - unzip 448ffd9afac8f8ba640f5f60e1301354443dbc06.zip
-  - cp -rT ebean-448ffd9afac8f8ba640f5f60e1301354443dbc06 ./
-  - rm -r ebean-448ffd9afac8f8ba640f5f60e1301354443dbc06
-  - rm 448ffd9afac8f8ba640f5f60e1301354443dbc06.zip
+  - wget https://github.com/winder/Universal-G-Code-Sender/archive/1ec86e4935d897fd4373c2e64de8e8598692bc95.zip
+  - unzip 1ec86e4935d897fd4373c2e64de8e8598692bc95.zip
+  - cp -rT Universal-G-Code-Sender-1ec86e4935d897fd4373c2e64de8e8598692bc95 ./
+  - rm -r Universal-G-Code-Sender-1ec86e4935d897fd4373c2e64de8e8598692bc95
+  - rm 1ec86e4935d897fd4373c2e64de8e8598692bc95.zip

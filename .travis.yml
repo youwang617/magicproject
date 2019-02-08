@@ -1,21 +1,15 @@
-# Floodlight build and test via Travis-CI
-
 language: java
-
 jdk:
- - oraclejdk8
-# - openjdk8 does not appear to be an option as of 04/29/16
-
-group: deprecated-2017Q4  # Use the previous image version before the update(12/12/17) to avoid build issues on pull request tests.
-
-notifications:
-  email:
-    recipients:
-      - ryan.izard@bigswitch.com
+  - oraclejdk8
+  - oraclejdk9
+services:
+  - redis-server
+after_success:
+  - mvn cobertura:cobertura coveralls:report
 
 before_install:
-  - wget https://github.com/floodlight/floodlight/archive/e51b9563ad773e4ace8dd988252f9a977c961c4e.zip
-  - unzip e51b9563ad773e4ace8dd988252f9a977c961c4e.zip
-  - cp -rT floodlight-e51b9563ad773e4ace8dd988252f9a977c961c4e ./
-  - rm -r floodlight-e51b9563ad773e4ace8dd988252f9a977c961c4e
-  - rm e51b9563ad773e4ace8dd988252f9a977c961c4e.zip
+  - wget https://github.com/gresrun/jesque/archive/53fcb490c5c9cde81cdac9abb3c8365cf0181a6d.zip
+  - unzip 53fcb490c5c9cde81cdac9abb3c8365cf0181a6d.zip
+  - cp -rT jesque-53fcb490c5c9cde81cdac9abb3c8365cf0181a6d ./
+  - rm -r jesque-53fcb490c5c9cde81cdac9abb3c8365cf0181a6d
+  - rm 53fcb490c5c9cde81cdac9abb3c8365cf0181a6d.zip

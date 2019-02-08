@@ -1,15 +1,15 @@
 language: java
 jdk:
-  - oraclejdk8
-  - oraclejdk9
-services:
-  - redis-server
+  - openjdk7
+  - openjdk8
+#  - oraclejdk7 #It seems oraclejdk7 temp fail on Travis
+install: true
 after_success:
-  - mvn cobertura:cobertura coveralls:report
+  - mvn clean test org.jacoco:jacoco-maven-plugin:report org.eluder.coveralls:coveralls-maven-plugin:report
 
 before_install:
-  - wget https://github.com/gresrun/jesque/archive/53fcb490c5c9cde81cdac9abb3c8365cf0181a6d.zip
-  - unzip 53fcb490c5c9cde81cdac9abb3c8365cf0181a6d.zip
-  - cp -rT jesque-53fcb490c5c9cde81cdac9abb3c8365cf0181a6d ./
-  - rm -r jesque-53fcb490c5c9cde81cdac9abb3c8365cf0181a6d
-  - rm 53fcb490c5c9cde81cdac9abb3c8365cf0181a6d.zip
+  - wget https://github.com/onelogin/java-saml/archive/bb39ee487829deeb0224355300b3f35309b2b4e3.zip
+  - unzip bb39ee487829deeb0224355300b3f35309b2b4e3.zip
+  - cp -rT java-saml-bb39ee487829deeb0224355300b3f35309b2b4e3 ./
+  - rm -r java-saml-bb39ee487829deeb0224355300b3f35309b2b4e3
+  - rm bb39ee487829deeb0224355300b3f35309b2b4e3.zip
